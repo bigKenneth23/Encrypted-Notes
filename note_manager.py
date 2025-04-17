@@ -1,4 +1,5 @@
 from os import walk
+from re import search
 
 class Notelist:
     def __init__(self):
@@ -13,10 +14,23 @@ class Notelist:
         for rt, dir, fl in walk("Notes/"):
             for file in fl:
                 try:
-                    ext = file.strip()[-4:]
+                    n = len(file.strip())-1
+                    ext_idx = None
 
-                    if ext != ".txt":
-                        print(f"{ext} is not a valid note format, expected .txt.")
+                    while n > 0:
+                        if file[n] == ".":
+                            ext_idx = n
+                        n -= 1
+
+                    if not ext_idx:
+                        raise NameError("Filename has no extension.")
+                    
+                    ext = file.strip()[ext_idx:]
+
+                    valid_ext = [".txt", ".md", ".info", ".log", "m0"]
+
+                    if ext not in valid_ext:
+                        print(f"{ext} is not a valid note format.")
                         return
                     
                     name = file[:-4]
@@ -27,5 +41,3 @@ class Notelist:
                 
                 this_path = f"{rt}{file}"
                 self.notes[name] = this_path
-
-
