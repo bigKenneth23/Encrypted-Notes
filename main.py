@@ -26,7 +26,7 @@ def Main(argv: list[str]):
         cmd = argv[1].lower().strip()
         if cmd not in valid_args:
             raise Exception
-    except:
+    except: #ValueError?
         print("Invalid argument provided.")
         return
     
@@ -59,6 +59,11 @@ def Main(argv: list[str]):
             RefreshKey()
             print("Files re-encrypted with new generated key.")
             return
+        
+        #JUST IN CASE!
+        case _:
+            print("Unexpected error has occured.")
+            return
 
 
 def LockAll():
@@ -80,7 +85,7 @@ def RefreshKey():
         UnlockAll()
 
     config.Repair()
-    LockAll()
+    LockAll() #maybe dont relock if not locked beforehand? 
     config.SwitchLockState()
 
 

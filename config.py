@@ -50,6 +50,7 @@ def SwitchLockState():
     with open(config_path, "r") as f:
         data = json.load(f)
 
+    # Improvement credit - Masco
     data["locked"] = not data["locked"]
     
     with open(config_path, "w") as f:

@@ -6,8 +6,8 @@ class Notelist:
         self.CollectNotes()
 
         if not self.notes:
-            raise TypeError()
-        
+            raise Exception("No valid notes are present.")        
+
 
     def CollectNotes(self):
         for rt, dir, fl in walk("Notes/"):
@@ -15,7 +15,8 @@ class Notelist:
                 try:
                     n = len(file.strip())-1
                     ext_idx = None
-
+                    
+                    #iterate backwards for last '.'
                     while n > 0:
                         if file[n] == ".":
                             ext_idx = n
@@ -33,6 +34,7 @@ class Notelist:
                         return
                     
                     name = file[:-4]
+                #likely uneccessary to catch an exception here, but you never know
                 except:
                     print(f"Invalid file format found: {file}")
                     self.notes = None

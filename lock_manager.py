@@ -6,6 +6,7 @@ class NoteLock:
     def __init__(self, note_path):
         self.path = note_path
 
+        #should not happen, more an indication the code has been changed and broken.
         if not exists(note_path):
             raise FileNotFoundError(f"{note_path} does not exist.") 
         
@@ -15,7 +16,7 @@ class NoteLock:
 
 
     def FetchKey(self):
-        # Key should already be verified before this stage
+        # Key should already be verified before this stage, any errors here are practically impossible.
         with open(config_path, "r") as f:
             data = load(f)
             key = data["key"]
@@ -30,6 +31,7 @@ class NoteLock:
             
     
     def Lock(self):
+        #i think some forms of text may break this though im not sure how. more testing needed
         c = Fernet(self.key)
         new = c.encrypt(self.content.encode())
         with open(self.path, "wb") as f:
