@@ -1,5 +1,4 @@
 from os import walk
-from re import search
 
 class Notelist:
     def __init__(self):
