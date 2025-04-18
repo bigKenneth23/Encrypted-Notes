@@ -1,10 +1,18 @@
 from os.path import exists
 import json
 from cryptography.fernet import Fernet
+from os import mkdir
 
 config_path = "config.json"
 
 def Verify():
+    if not exists("Notes/"):
+        print("No notes directory found, creating new directory.")
+        mkdir("Notes/")
+        print("Please create a new note and try again.")
+        Repair()
+        exit()
+
     if exists(config_path):
 
         with open(config_path, "r") as f:

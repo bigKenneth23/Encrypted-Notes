@@ -6,7 +6,8 @@ class Notelist:
         self.CollectNotes()
 
         if not self.notes:
-            raise Exception("No valid notes are present.")        
+            print("No notes have been created, please make a new note and try again.")
+            exit()       
 
 
     def CollectNotes(self):

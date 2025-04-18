@@ -39,8 +39,11 @@ class NoteLock:
 
 
     def Unlock(self):
-        c = Fernet(self.key)
-        new = c.decrypt(self.content)
-        with open(self.path, "wb") as f:
-            f.write(new)
+        try:
+            c = Fernet(self.key)
+            new = c.decrypt(self.content.encode())
+            with open(self.path, "wb") as f:
+                f.write(new)
+        except: # Files created while encryption is active cause errors as they are already decrypted, ignore them and move on is the safest approach here.
+            pass
 
